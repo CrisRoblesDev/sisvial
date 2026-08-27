@@ -440,16 +440,23 @@
        ========================================================================== */
     .hero-section {
       position: relative;
-      min-height: 94vh;
+      min-height: 100vh;
+      min-height: 100dvh;
+      width: 100%;
       display: flex;
       align-items: center;
-      padding: 8rem 0 5rem 0;
+      padding: 7rem 0 4rem 0;
       /* Imagen real sin filtros que la tapen */
       background-image: url('BackgroundInicio.png');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
       overflow: hidden;
+    }
+
+    /* Controles de navegación en móviles para Servicios */
+    .services-mobile-controls {
+      display: none;
     }
 
     /* Sin overlay que oculte o difumine la foto */
@@ -1377,8 +1384,65 @@
       }
 
       .hero-section {
-        padding: 6.5rem 0 3.5rem 0;
-        min-height: auto;
+        padding: 6rem 0 3rem 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        width: 100%;
+      }
+
+      .services-mobile-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.25rem;
+        margin-top: 1.5rem;
+      }
+
+      .services-nav-btn {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--bg-surface);
+        border: 1.5px solid var(--border-medium);
+        color: var(--text-title);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-md);
+        transition: all var(--transition-fast);
+        cursor: pointer;
+      }
+
+      .services-nav-btn:hover,
+      .services-nav-btn:active {
+        background: var(--color-primary);
+        color: #FFFFFF;
+        border-color: var(--color-primary);
+        transform: scale(1.08);
+        box-shadow: 0 4px 12px var(--color-primary-glow);
+      }
+
+      .services-dots {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .services-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--border-medium);
+        border: none;
+        padding: 0;
+        transition: all var(--transition-fast);
+        cursor: pointer;
+      }
+
+      .services-dot.active {
+        background: var(--color-primary);
+        width: 26px;
+        border-radius: 9999px;
       }
 
       .hero-content {
@@ -1588,7 +1652,7 @@
           </p>
         </div>
 
-        <div class="services-grid">
+        <div class="services-grid" id="servicesGrid">
           <!-- 01: Líneas Laterales y Centrales -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
@@ -1652,6 +1716,21 @@
               </div>
             </div>
           </article>
+        </div>
+
+        <!-- Flechas y puntos de navegación para móviles en Servicios -->
+        <div class="services-mobile-controls">
+          <button type="button" class="services-nav-btn" id="btnPrevService" aria-label="Servicio anterior">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6"/>
+            </svg>
+          </button>
+          <div class="services-dots" id="servicesDots"></div>
+          <button type="button" class="services-nav-btn" id="btnNextService" aria-label="Siguiente servicio">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -2346,6 +2425,67 @@
         createDots();
         updateCarouselPosition();
       }, { passive: true });
+
+      /* --------------------------------------------------------------------------
+         NUEVO: NAVEGACIÓN MÓVIL DE SERVICIOS (FLECHAS Y DOTS)
+         -------------------------------------------------------------------------- */
+      const servicesGrid = document.getElementById('servicesGrid');
+      const btnPrevService = document.getElementById('btnPrevService');
+      const btnNextService = document.getElementById('btnNextService');
+      const servicesDotsContainer = document.getElementById('servicesDots');
+
+      if (servicesGrid) {
+        const serviceCards = Array.from(servicesGrid.querySelectorAll('.service-card'));
+        
+        const createServicesDots = () => {
+          if (!servicesDotsContainer) return;
+          servicesDotsContainer.innerHTML = '';
+          serviceCards.forEach((_, idx) => {
+            const dot = document.createElement('button');
+            dot.classList.add('services-dot');
+            if (idx === 0) dot.classList.add('active');
+            dot.setAttribute('aria-label', `Ir a servicio ${idx + 1}`);
+            dot.addEventListener('click', () => {
+              const cardWidth = serviceCards[0].offsetWidth + 16;
+              servicesGrid.scrollTo({
+                left: idx * cardWidth,
+                behavior: 'smooth'
+              });
+            });
+            servicesDotsContainer.appendChild(dot);
+          });
+        };
+
+        const updateActiveServiceDot = () => {
+          if (!servicesDotsContainer || !serviceCards.length) return;
+          const cardWidth = serviceCards[0].offsetWidth + 16;
+          const scrollPos = servicesGrid.scrollLeft;
+          const activeIdx = Math.round(scrollPos / cardWidth);
+          const dots = servicesDotsContainer.querySelectorAll('.services-dot');
+          dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === activeIdx);
+          });
+        };
+
+        if (btnPrevService) {
+          btnPrevService.addEventListener('click', () => {
+            const cardWidth = serviceCards[0] ? serviceCards[0].offsetWidth + 16 : 300;
+            servicesGrid.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+          });
+        }
+
+        if (btnNextService) {
+          btnNextService.addEventListener('click', () => {
+            const cardWidth = serviceCards[0] ? serviceCards[0].offsetWidth + 16 : 300;
+            servicesGrid.scrollBy({ left: cardWidth, behavior: 'smooth' });
+          });
+        }
+
+        servicesGrid.addEventListener('scroll', updateActiveServiceDot, { passive: true });
+        createServicesDots();
+        
+        window.addEventListener('resize', createServicesDots, { passive: true });
+      }
 
       /* --------------------------------------------------------------------------
          5. INTERSECTION OBSERVER (REVEAL ANIMATIONS)
