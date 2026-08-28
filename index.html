@@ -762,28 +762,340 @@
       transform: scale(1.05);
     }
 
-    .project-overlay {
+    /* ==========================================================================
+       SECCIÓN PRODUCTOS (DISEÑO MEJORADO)
+       ========================================================================== */
+    .products-section {
+      padding: 7rem 0;
+      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-body) 100%);
+      position: relative;
+      border-top: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+
+    .products-section::before {
+      content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 45%, rgba(15, 23, 42, 0.88) 100%);
-      display: flex;
-      align-items: flex-end;
-      padding: 1.25rem;
-    }
-
-    .project-info {
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-amber));
     }
 
-    .project-title {
+    .products-section .section-header {
+      position: relative;
+    }
+
+    .products-section .section-header::before {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background-color: var(--color-primary);
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .products-section .section-title {
       font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      line-height: 1.3;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--text-title);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
     }
 
-    /* Controles del Carrusel */
+    .products-section .section-subtitle {
+      font-size: clamp(1rem, 1.3vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 650px;
+      font-weight: 400;
+      line-height: 1.7;
+      margin-top: 0.75rem;
+    }
+
+    .products-carousel-wrapper {
+      position: relative;
+      margin-top: 1.5rem;
+    }
+
+    .products-carousel-viewport {
+      overflow: hidden;
+      width: 100%;
+      border-radius: 16px;
+      cursor: grab;
+    }
+
+    .products-carousel-viewport:active {
+      cursor: grabbing;
+    }
+
+    .products-carousel-track {
+      display: flex;
+      gap: 1.75rem;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    /* Desktop: 5 tarjetas visibles simultáneamente */
+    .product-slide {
+      flex: 0 0 calc((100% - 7rem) / 5);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      user-select: none;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-smooth);
+    }
+
+    .product-slide:hover {
+      transform: translateY(-8px);
+      border-color: var(--color-primary);
+      box-shadow: 0 16px 40px -8px rgba(216, 58, 30, 0.18), var(--shadow-lg);
+    }
+
+    .product-image-container {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      background-color: #E2E8F0;
+    }
+
+    .product-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .product-slide:hover .product-image-container img {
+      transform: scale(1.08);
+    }
+
+    /* Overlay degradado en la imagen */
+    .product-image-container::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.45) 100%);
+      pointer-events: none;
+    }
+
+    /* Badge numérico sobre la imagen */
+    .product-number-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 2;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: #FFFFFF;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(216, 58, 30, 0.4);
+      transition: transform var(--transition-fast);
+    }
+
+    .product-slide:hover .product-number-badge {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .product-card-content {
+      padding: 1.75rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .product-card-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-title);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+      transition: color var(--transition-fast);
+      position: relative;
+      padding-left: 0.75rem;
+    }
+
+    .product-card-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 4px;
+      bottom: 4px;
+      width: 3px;
+      background-color: var(--color-primary);
+      border-radius: 2px;
+      transform: scaleY(0);
+      transition: transform var(--transition-fast);
+    }
+
+    .product-slide:hover .product-card-title {
+      color: var(--color-primary);
+    }
+
+    .product-slide:hover .product-card-title::before {
+      transform: scaleY(1);
+    }
+
+    .product-card-desc {
+      font-size: 0.925rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Botón Cotizar Glass mejorado */
+    .btn-product-cotizar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, rgba(216, 58, 30, 0.08), rgba(216, 58, 30, 0.04));
+      color: var(--color-primary);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      border: 1.5px solid rgba(216, 58, 30, 0.35);
+      transition: all var(--transition-smooth);
+      cursor: pointer;
+      width: 100%;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-product-cotizar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(216, 58, 30, 0.06), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-product-cotizar:hover::before {
+      left: 100%;
+    }
+
+    .btn-product-cotizar:hover {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+      color: #FFFFFF;
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--color-primary-glow);
+    }
+
+    .btn-product-cotizar:active {
+      transform: translateY(0);
+    }
+
+    .btn-product-cotizar svg {
+      transition: transform var(--transition-fast);
+    }
+
+    .btn-product-cotizar:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Controles del Carrusel de Productos */
+    .products-carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2.5rem;
+    }
+
+    .products-carousel-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .products-carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border-medium);
+      transition: all var(--transition-fast);
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    .products-carousel-dot.active {
+      background: var(--color-primary);
+      width: 28px;
+      border-radius: 9999px;
+    }
+
+    .products-carousel-nav-buttons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .products-carousel-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-light);
+      color: var(--text-title);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .products-carousel-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--color-primary-glow);
+    }
+
+    .products-carousel-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Mobile Controls para Productos */
+    .products-mobile-controls {
+      display: none;
+    }
+
+    /* ==========================================================================
+       CONTROLES DEL CARRUSEL
+       ========================================================================== */
     .carousel-controls {
       display: flex;
       align-items: center;
@@ -1366,6 +1678,10 @@
         flex: 0 0 calc((100% - 1.5rem) / 2);
       }
 
+      .product-slide {
+        flex: 0 0 calc((100% - 1.5rem) / 2);
+      }
+
       .footer-grid {
         grid-template-columns: 1fr 1fr;
         gap: 2.5rem;
@@ -1495,6 +1811,129 @@
 
       .project-image-container {
         height: 240px;
+      }
+
+      .products-carousel-track {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding: 0 1rem 1rem 1rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        transition: none;
+        will-change: auto;
+      }
+
+      .products-carousel-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .products-carousel-viewport {
+        overflow: visible;
+      }
+
+      .product-slide {
+        flex: 0 0 82vw;
+        border-radius: 14px;
+        scroll-snap-align: start;
+      }
+
+      .product-slide:hover {
+        transform: none;
+        border-color: var(--border-light);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .product-slide:hover .product-image-container img {
+        transform: none;
+      }
+
+      .product-slide:hover .product-number-badge {
+        transform: none;
+      }
+
+      .product-slide:hover .product-card-title {
+        color: var(--text-title);
+      }
+
+      .product-slide:hover .product-card-title::before {
+        transform: scaleY(0);
+      }
+
+      .product-image-container {
+        height: 200px;
+      }
+
+      .product-card-title {
+        font-size: 1.1rem;
+      }
+
+      .product-card-desc {
+        font-size: 0.85rem;
+      }
+
+      .products-carousel-controls {
+        display: none;
+      }
+
+      .products-mobile-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.25rem;
+        margin-top: 1.5rem;
+      }
+
+      .products-nav-btn {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--bg-surface);
+        border: 1.5px solid var(--border-medium);
+        color: var(--text-title);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-md);
+        transition: all var(--transition-fast);
+        cursor: pointer;
+      }
+
+      .products-nav-btn:hover,
+      .products-nav-btn:active {
+        background: var(--color-primary);
+        color: #FFFFFF;
+        border-color: var(--color-primary);
+        transform: scale(1.08);
+        box-shadow: 0 4px 12px var(--color-primary-glow);
+      }
+
+      .products-dots {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .products-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--border-medium);
+        border: none;
+        padding: 0;
+        transition: all var(--transition-fast);
+        cursor: pointer;
+      }
+
+      .products-dot.active {
+        background: var(--color-primary);
+        width: 26px;
+        border-radius: 9999px;
+      }
+
+      .products-carousel-controls {
+        display: none;
       }
 
       .contact-grid {
@@ -1656,7 +2095,7 @@
           <!-- 01: Líneas Laterales y Centrales -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
-              <span class="service-card-number">01</span>
+              <span class="product-number-badge">01</span>
               <img src="Servicio1.jpg" alt="Líneas Laterales y Centrales en carretera" loading="lazy" width="400" height="280">
             </div>
             <div class="service-card-content">
@@ -1672,7 +2111,7 @@
           <!-- 02: Simbología Especial -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
-              <span class="service-card-number">02</span>
+              <span class="product-number-badge">02</span>
               <img src="Servicio2.jpg" alt="Demarcación de Simbología Especial y Cruces" loading="lazy" width="400" height="280">
             </div>
             <div class="service-card-content">
@@ -1688,7 +2127,7 @@
           <!-- 03: Dispositivos de Seguridad -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
-              <span class="service-card-number">03</span>
+              <span class="product-number-badge">03</span>
               <img src="Servicio3.jpg" alt="Instalación de Dispositivos de Seguridad Vial" loading="lazy" width="400" height="280">
             </div>
             <div class="service-card-content">
@@ -1704,7 +2143,7 @@
           <!-- 04: Demarcaciones Extras -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
-              <span class="service-card-number">04</span>
+              <span class="product-number-badge">04</span>
               <img src="Servicio4.jpg" alt="Demarcaciones Extras e Industriales" loading="lazy" width="400" height="280">
             </div>
             <div class="service-card-content">
@@ -1755,11 +2194,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente1.jpg" alt="Demarcación de Ejes y Pistas Urbanas" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Demarcación de Ejes y Pistas Urbanas</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1767,11 +2201,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente2.jpg" alt="Aplicación de Líneas Continuas y Segmentadas" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Líneas Continuas y Segmentadas</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1779,11 +2208,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente3.jpg" alt="Señalización y Simbología en Cruces" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Simbología Vial en Cruces Clave</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1791,11 +2215,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente4.jpg" alt="Demarcación de Zonas de Estacionamiento y Accesos" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Zonas de Estacionamiento y Accesos</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1803,11 +2222,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente5.jpg" alt="Obras Viales de Alta Precisión en Terreno" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Obras Viales de Alta Precisión</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1815,11 +2229,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente6.jpg" alt="Delimitación de Carriles y Berma en Rutas" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Delimitación de Carriles y Berma</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1827,11 +2236,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente7.jpg" alt="Instalación y Pintura de Seguridad en Pavimento" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Pintura de Seguridad en Pavimento</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1839,11 +2243,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente8.jpg" alt="Proyectos Integrales de Señalética y Señalización" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Señalización Vial Integral</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1851,11 +2250,6 @@
               <div class="project-slide">
                 <div class="project-image-container">
                   <img src="TrabajoReciente9.jpg" alt="Demarcación Técnica para Tráfico Pesado y Logística" loading="lazy">
-                  <div class="project-overlay">
-                    <div class="project-info">
-                      <h3 class="project-title">Demarcación Logística y Tráfico Pesado</h3>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -1878,6 +2272,185 @@
                 </svg>
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+     </section>
+
+    <!-- ==========================================================================
+         SECCIÓN PRODUCTOS
+         ========================================================================== -->
+    <section class="products-section" id="productos">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 class="section-title">Nuestros Productos</h2>
+          <p class="section-subtitle">
+            Equipamiento y materiales de alta calidad para cada tipo de demarcación y seguridad vial.
+          </p>
+        </div>
+
+        <div class="products-carousel-wrapper reveal">
+          <div class="products-carousel-viewport" id="productsViewport">
+            <div class="products-carousel-track" id="productsTrack">
+
+              <!-- Producto 1 -->
+              <div class="product-slide">
+                <div class="product-card">
+                  <div class="product-image-container">
+                    <span class="product-number-badge">01</span>
+                    <img src="producto1.jpg" alt="Producto 1" loading="lazy" width="400" height="280">
+                  </div>
+                  <div class="product-card-content">
+                    <div>
+                      <h3 class="product-card-title">Pintura Termoplástica</h3>
+                      <p class="product-card-desc">
+                        Pintura vial de alto tráfico con microesferas de vidrio para máxima reflectancia diurna y nocturna.
+                      </p>
+                    </div>
+                    <a href="https://wa.me/56944060941?text=Hola%20SISVIAL%2C%20quisiera%20cotizar%20sobre%20Pintura%20Termopl%C3%A1stica" class="btn-product-cotizar" target="_blank" rel="noopener noreferrer">
+                      <span>Cotizar</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Producto 2 -->
+              <div class="product-slide">
+                <div class="product-card">
+                  <div class="product-image-container">
+                    <span class="product-number-badge">02</span>
+                    <img src="producto2.jpg" alt="Producto 2" loading="lazy" width="400" height="280">
+                  </div>
+                  <div class="product-card-content">
+                    <div>
+                      <h3 class="product-card-title">Simbología y Señalización</h3>
+                      <p class="product-card-desc">
+                        Flechas, pasos peatonales, cruces cebra y leyendas viales con trazados geométricos de alta precisión.
+                      </p>
+                    </div>
+                    <a href="https://wa.me/56944060941?text=Hola%20SISVIAL%2C%20quisiera%20cotizar%20sobre%20Simbolog%C3%ADa%20y%20Se%C3%B1alizaci%C3%B3n" class="btn-product-cotizar" target="_blank" rel="noopener noreferrer">
+                      <span>Cotizar</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Producto 3 -->
+              <div class="product-slide">
+                <div class="product-card">
+                  <div class="product-image-container">
+                    <span class="product-number-badge">03</span>
+                    <img src="producto3.jpg" alt="Producto 3" loading="lazy" width="400" height="280">
+                  </div>
+                  <div class="product-card-content">
+                    <div>
+                      <h3 class="product-card-title">Dispositivos de Seguridad</h3>
+                      <p class="product-card-desc">
+                        Tachas reflectantes bidireccionales, tachones reductores de velocidad, delineadores y canalizadores.
+                      </p>
+                    </div>
+                    <a href="https://wa.me/56944060941?text=Hola%20SISVIAL%2C%20quisiera%20cotizar%20sobre%20Dispositivos%20de%20Seguridad" class="btn-product-cotizar" target="_blank" rel="noopener noreferrer">
+                      <span>Cotizar</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Producto 4 -->
+              <div class="product-slide">
+                <div class="product-card">
+                  <div class="product-image-container">
+                    <span class="product-number-badge">04</span>
+                    <img src="producto4.jpg" alt="Producto 4" loading="lazy" width="400" height="280">
+                  </div>
+                  <div class="product-card-content">
+                    <div>
+                      <h3 class="product-card-title">Demarcación Industrial</h3>
+                      <p class="product-card-desc">
+                        Pintura y sectorización para estacionamientos, bodegas, ciclovías, zonas de carga y áreas industriales.
+                      </p>
+                    </div>
+                    <a href="https://wa.me/56944060941?text=Hola%20SISVIAL%2C%20quisiera%20cotizar%20sobre%20Demarcaci%C3%B3n%20Industrial" class="btn-product-cotizar" target="_blank" rel="noopener noreferrer">
+                      <span>Cotizar</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Producto 5 -->
+              <div class="product-slide">
+                <div class="product-card">
+                  <div class="product-image-container">
+                    <span class="product-number-badge">05</span>
+                    <img src="producto5.jpg" alt="Producto 5" loading="lazy" width="400" height="280">
+                  </div>
+                  <div class="product-card-content">
+                    <div>
+                      <h3 class="product-card-title">Acrílica y Microesferas</h3>
+                      <p class="product-card-desc">
+                        Pintura acrílica de secado rápido con microesferas cerámicas para señalización temporal y permanente.
+                      </p>
+                    </div>
+                    <a href="https://wa.me/56944060941?text=Hola%20SISVIAL%2C%20quisiera%20cotizar%20sobre%20Acr%C3%B3lica%20y%20Microesferas" class="btn-product-cotizar" target="_blank" rel="noopener noreferrer">
+                      <span>Cotizar</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Controles del Carrusel de Productos -->
+          <div class="products-carousel-controls" id="productsControls">
+            <div class="products-carousel-dots" id="productsDots" role="tablist" aria-label="Páginas de productos"></div>
+            <div class="products-carousel-nav-buttons">
+              <button type="button" class="products-carousel-btn" id="btnPrevProduct" aria-label="Producto anterior">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"/>
+                </svg>
+              </button>
+              <button type="button" class="products-carousel-btn" id="btnNextProduct" aria-label="Producto siguiente">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m9 18 6-6-6-6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Flechas y puntos de navegación para móviles en Productos -->
+          <div class="products-mobile-controls" id="productsMobileControls">
+            <button type="button" class="products-nav-btn" id="btnPrevProductMobile" aria-label="Producto anterior">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6"/>
+              </svg>
+            </button>
+            <div class="products-dots" id="productsMobileDots"></div>
+            <button type="button" class="products-nav-btn" id="btnNextProductMobile" aria-label="Producto siguiente">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -2419,16 +2992,228 @@
       updateCarouselPosition();
       startAutoPlay();
 
-      window.addEventListener('resize', () => {
-        const max = getMaxIndex();
-        if (currentIndex > max) currentIndex = max;
-        createDots();
-        updateCarouselPosition();
-      }, { passive: true });
+       window.addEventListener('resize', () => {
+         const max = getMaxIndex();
+         if (currentIndex > max) currentIndex = max;
+         createDots();
+         updateCarouselPosition();
+       }, { passive: true });
 
-      /* --------------------------------------------------------------------------
-         NUEVO: NAVEGACIÓN MÓVIL DE SERVICIOS (FLECHAS Y DOTS)
-         -------------------------------------------------------------------------- */
+       /* --------------------------------------------------------------------------
+          4b. CARRUSEL DE PRODUCTOS (5 IMÁGENES)
+          -------------------------------------------------------------------------- */
+        const productsTrack = document.getElementById('productsTrack');
+        const productsViewport = document.getElementById('productsViewport');
+        const productSlides = Array.from(productsTrack.querySelectorAll('.product-slide'));
+        const btnPrevProduct = document.getElementById('btnPrevProduct');
+        const btnNextProduct = document.getElementById('btnNextProduct');
+        const productsDotsContainer = document.getElementById('productsDots');
+        const productsMobileDotsContainer = document.getElementById('productsMobileDots');
+        const btnPrevProductMobile = document.getElementById('btnPrevProductMobile');
+        const btnNextProductMobile = document.getElementById('btnNextProductMobile');
+
+        let productsCurrentIndex = 0;
+        let productsAutoPlayTimer = null;
+        const isProductsMobile = () => window.innerWidth <= 768;
+
+        const getProductsVisibleCount = () => {
+          if (isProductsMobile()) return 1;
+          if (window.innerWidth <= 1024) return 2;
+          return 5;
+        };
+
+        const getProductsMaxIndex = () => {
+          const visible = getProductsVisibleCount();
+          return Math.max(0, productSlides.length - visible);
+        };
+
+        const createProductsDots = (dotsContainer) => {
+          if (!dotsContainer) return;
+          dotsContainer.innerHTML = '';
+          const maxIndex = getProductsMaxIndex();
+          const totalPages = maxIndex + 1;
+
+          for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement('button');
+            dot.classList.add('products-carousel-dot');
+            if (i === productsCurrentIndex) dot.classList.add('active');
+            dot.setAttribute('aria-label', `Ir a producto ${i + 1}`);
+            dot.addEventListener('click', () => {
+              productsCurrentIndex = i;
+              if (!isProductsMobile()) {
+                updateProductsCarouselPosition();
+              } else {
+                scrollProductsToIndex(i);
+              }
+              resetProductsAutoPlay();
+            });
+            dotsContainer.appendChild(dot);
+          }
+        };
+
+        const updateProductsDots = (dotsContainer) => {
+          if (!dotsContainer) return;
+          const dots = dotsContainer.querySelectorAll('.products-carousel-dot');
+          dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === productsCurrentIndex);
+          });
+        };
+
+        const updateProductsCarouselPosition = () => {
+          if (!productSlides.length || isProductsMobile()) return;
+          const slideWidth = productSlides[0].getBoundingClientRect().width;
+          const gap = 24;
+          const offset = -(productsCurrentIndex * (slideWidth + gap));
+          productsTrack.style.transform = `translateX(${offset}px)`;
+        };
+
+        const scrollProductsToIndex = (index) => {
+          if (!productsTrack || !productSlides.length) return;
+          const cardWidth = productSlides[0].offsetWidth + 16;
+          productsTrack.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+        };
+
+        const scrollProducts = (direction) => {
+          if (!productsTrack || !productSlides.length) return;
+          const cardWidth = productSlides[0].offsetWidth + 16;
+          productsTrack.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+        };
+
+        const goToProductSlide = (index) => {
+          const maxIndex = getProductsMaxIndex();
+          if (index < 0) {
+            productsCurrentIndex = maxIndex;
+          } else if (index > maxIndex) {
+            productsCurrentIndex = 0;
+          } else {
+            productsCurrentIndex = index;
+          }
+          if (!isProductsMobile()) {
+            updateProductsCarouselPosition();
+          } else {
+            scrollProductsToIndex(productsCurrentIndex);
+          }
+        };
+
+        const nextProductSlide = () => {
+          goToProductSlide(productsCurrentIndex + 1);
+        };
+
+        const prevProductSlide = () => {
+          goToProductSlide(productsCurrentIndex - 1);
+        };
+
+        if (btnPrevProduct) {
+          btnPrevProduct.addEventListener('click', () => {
+            prevProductSlide();
+            resetProductsAutoPlay();
+          });
+        }
+
+        if (btnNextProduct) {
+          btnNextProduct.addEventListener('click', () => {
+            nextProductSlide();
+            resetProductsAutoPlay();
+          });
+        }
+
+        if (btnPrevProductMobile) {
+          btnPrevProductMobile.addEventListener('click', () => {
+            scrollProducts(-1);
+            resetProductsAutoPlay();
+          });
+        }
+
+        if (btnNextProductMobile) {
+          btnNextProductMobile.addEventListener('click', () => {
+            scrollProducts(1);
+            resetProductsAutoPlay();
+          });
+        }
+
+        const startProductsAutoPlay = () => {
+          stopProductsAutoPlay();
+          if (isProductsMobile()) {
+            productsAutoPlayTimer = setInterval(() => scrollProducts(1), 5000);
+          } else {
+            productsAutoPlayTimer = setInterval(nextProductSlide, 5000);
+          }
+        };
+
+        const stopProductsAutoPlay = () => {
+          if (productsAutoPlayTimer) clearInterval(productsAutoPlayTimer);
+        };
+
+        const resetProductsAutoPlay = () => {
+          stopProductsAutoPlay();
+          startProductsAutoPlay();
+        };
+
+        if (productsViewport) {
+          productsViewport.addEventListener('mouseenter', stopProductsAutoPlay);
+          productsViewport.addEventListener('mouseleave', startProductsAutoPlay);
+        }
+
+        // Touch swipe en el carrusel de productos (solo desktop)
+        if (!isProductsMobile()) {
+          let productsTouchStartX = 0;
+          let productsTouchEndX = 0;
+
+          if (productsViewport) {
+            productsViewport.addEventListener('touchstart', (e) => {
+              productsTouchStartX = e.changedTouches[0].screenX;
+              stopProductsAutoPlay();
+            }, { passive: true });
+
+            productsViewport.addEventListener('touchend', (e) => {
+              productsTouchEndX = e.changedTouches[0].screenX;
+              const threshold = 40;
+              if (productsTouchStartX - productsTouchEndX > threshold) {
+                nextProductSlide();
+              } else if (productsTouchEndX - productsTouchStartX > threshold) {
+                prevProductSlide();
+              }
+              startProductsAutoPlay();
+            }, { passive: true });
+          }
+        }
+
+        // Inicializar Carrusel de Productos
+        createProductsDots(productsDotsContainer);
+        createProductsDots(productsMobileDotsContainer);
+        updateProductsCarouselPosition();
+        startProductsAutoPlay();
+
+        window.addEventListener('resize', () => {
+          const max = getProductsMaxIndex();
+          if (productsCurrentIndex > max) productsCurrentIndex = max;
+          createProductsDots(productsDotsContainer);
+          createProductsDots(productsMobileDotsContainer);
+          updateProductsCarouselPosition();
+        }, { passive: true });
+
+        // Scroll snap tracking para mobile
+        if (productsTrack) {
+          productsTrack.addEventListener('scroll', () => {
+            if (isProductsMobile()) {
+              const cardWidth = productSlides[0].offsetWidth + 16;
+               const scrollPos = productsTrack.scrollLeft;
+              const activeIdx = Math.round(scrollPos / cardWidth);
+              const dots = productsMobileDotsContainer.querySelectorAll('.products-carousel-dot');
+              dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === activeIdx);
+              });
+              const dotsDesktop = productsDotsContainer.querySelectorAll('.products-carousel-dot');
+              dotsDesktop.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === activeIdx);
+              });
+            }
+          }, { passive: true });
+        }
+
+       /* --------------------------------------------------------------------------
+          5. INTERSECTION OBSERVER (REVEAL ANIMATIONS)
+          -------------------------------------------------------------------------- */
       const servicesGrid = document.getElementById('servicesGrid');
       const btnPrevService = document.getElementById('btnPrevService');
       const btnNextService = document.getElementById('btnNextService');
