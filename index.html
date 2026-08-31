@@ -5,18 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SISVIAL | Demarcación y Seguridad Vial en Chile</title>
   <meta name="description" content="Empresa líder en demarcación y seguridad vial en Chile. Pintura vial de alto tráfico, simbología técnica, señalización y dispositivos viales bajo normativa MOP.">
-  <meta name="theme-color" content="#FFFFFF">
+  <link rel="canonical" href="https://www.sisvial.cl/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#D83A1E">
+
+  <!-- Favicons / Logo para Google Search -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Open Graph / Redes Sociales -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.sisvial.cl/">
   <meta property="og:title" content="SISVIAL | Demarcación y Seguridad Vial en Chile">
   <meta property="og:description" content="Servicios Integrales de Seguridad Vial y demarcación técnica con los más altos estándares de durabilidad y precisión en terreno.">
-  <meta property="og:image" content="BackgroundInicio.png">
+  <meta property="og:image" content="https://www.sisvial.cl/Logo.png">
+  <meta property="og:logo" content="https://www.sisvial.cl/Logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Datos estructurados Organization + Logo (Google Search) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SISVIAL",
+    "url": "https://www.sisvial.cl/",
+    "logo": "https://www.sisvial.cl/Logo.png",
+    "image": "https://www.sisvial.cl/Logo.png",
+    "description": "Servicios Integrales de Seguridad Vial y demarcación técnica en Chile",
+    "telephone": "+56944060941",
+    "sameAs": []
+  }
+  </script>
 
   <!-- Tipografías de Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     /* ==========================================================================
@@ -592,9 +622,9 @@
       transform: translateY(0);
     }
 
-    /* ==========================================================================
-       5. SECCIÓN SERVICIOS (4 COLUMNAS DESKTOP / FONDO LUMINOSO)
-       ========================================================================== */
+/* ==========================================================================
+        5. SECCIÓN SERVICIOS (DISEÑO NUEVO: TÍTULO NARANJA-AMARILLO, TARJETAS CON ÍCONOS)
+        ========================================================================== */
     .services-section {
       padding: 6.5rem 0;
       background-color: var(--bg-surface);
@@ -603,17 +633,46 @@
       border-bottom: 1px solid var(--border-light);
     }
 
+    .services-section .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .services-section .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: transparent;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-amber));
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .services-section .section-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 1.5vw, 1.75rem);
+      font-weight: 700;
+      color: var(--text-title);
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
     .services-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
     .service-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-light);
-      border-radius: 10px;
-      overflow: hidden;
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       transition: all var(--transition-smooth);
@@ -622,77 +681,248 @@
     }
 
     .service-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--border-primary);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-8px);
+      border-color: var(--color-amber);
+      box-shadow: 0 12px 32px rgba(216, 58, 30, 0.10), 0 4px 12px rgba(217, 119, 6, 0.08);
     }
 
     .service-card-image-wrap {
       position: relative;
       width: 100%;
-      height: 250px;
+      height: 260px;
       overflow: hidden;
       background-color: #E2E8F0;
+      border-radius: 12px 12px 0 0;
     }
 
-    .service-card-image-wrap img {
+    .service-card-image-inner {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .service-card-image-inner img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .service-card:hover .service-card-image-wrap img {
+    .service-card:hover .service-card-image-inner img {
       transform: scale(1.06);
     }
 
-    .service-card-number {
+    /* Círculo amarillo superpuesto con icono negro */
+    .service-card-icon-circle {
       position: absolute;
-      top: 0.85rem;
-      left: 0.85rem;
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--color-primary);
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid var(--border-primary);
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-      letter-spacing: 0.05em;
-      box-shadow: var(--shadow-sm);
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: var(--color-amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.45);
+      z-index: 3;
+      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+    }
+
+    .service-card:hover .service-card-icon-circle {
+      transform: translateX(-50%) scale(1.1);
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.55);
+    }
+
+    .service-card-icon-circle i {
+      font-size: 22px;
+      color: #000000;
     }
 
     .service-card-content {
-      padding: 1.5rem 1.35rem;
+      padding: 2.5rem 1.5rem 2rem;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-      justify-content: space-between;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+      margin-top: -20px;
+      position: relative;
+      z-index: 1;
+      background: var(--bg-surface);
+      border-radius: 0 0 12px 12px;
     }
 
     .service-card-title {
       font-family: var(--font-display);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--text-title);
       line-height: 1.3;
-      margin-bottom: 0.65rem;
-      transition: color var(--transition-fast);
-    }
-
-    .service-card:hover .service-card-title {
-      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.01em;
     }
 
     .service-card-desc {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
-      line-height: 1.55;
+      line-height: 1.6;
+      margin: 0;
     }
 
     /* ==========================================================================
-       6. SECCIÓN PROYECTOS / TRABAJOS REALIZADOS (CARRUSEL 9 FOTOS)
-       ========================================================================== */
+        5.5 SECCIÓN SECTORES QUE ATENDEMOS
+        ========================================================================== */
+    .sectors-section {
+      padding: 6.5rem 0;
+      background-color: var(--bg-surface);
+      position: relative;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .sectors-section .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .sectors-section .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: transparent;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-amber));
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .sectors-section .section-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 1.5vw, 1.75rem);
+      font-weight: 700;
+      color: var(--text-title);
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .sectors-grid {
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+    }
+
+    @media (min-width: 769px) {
+      .sector-item.sector-clone {
+        display: none;
+      }
+    }
+
+    .sector-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 2rem 2.5rem;
+      border-right: 1px solid var(--border-light);
+      transition: all var(--transition-smooth);
+      flex: 1;
+    }
+
+    .sector-item:last-child {
+      border-right: none;
+    }
+
+    .sector-item:hover {
+      background: var(--bg-subtle);
+    }
+
+    .sector-item:hover .sector-icon {
+      transform: scale(1.15);
+      color: var(--color-primary);
+    }
+
+    .sector-icon {
+      font-size: 3rem;
+      color: #000000;
+      transition: transform var(--transition-smooth), color var(--transition-fast);
+      line-height: 1;
+    }
+
+    .sector-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-title);
+      text-align: center;
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    /* Mobile: carrusel auto-scrolling */
+    @media (max-width: 768px) {
+      .sectors-section {
+        padding: 5rem 0;
+      }
+
+      .sectors-section .section-title {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+      }
+
+      .sectors-section .section-subtitle {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+      }
+
+      .sectors-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 0;
+        padding: 2rem 0;
+        scrollbar-width: none;
+        justify-content: flex-start;
+        width: 90vw;
+        margin: 0 auto;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      }
+
+      .sectors-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .sector-item {
+        flex: 0 0 55vw;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        padding: 1.5rem;
+      }
+
+      .sector-item:last-child {
+        border-bottom: none;
+      }
+
+      .sector-icon {
+        font-size: 2.5rem;
+      }
+
+      .sector-title {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* ==========================================================================
+        6. SECCIÓN PROYECTOS / TRABAJOS REALIZADOS (CARRUSEL 9 FOTOS)
+        ========================================================================== */
     .projects-section {
       padding: 6.5rem 0;
       background-color: var(--bg-body);
@@ -726,14 +956,17 @@
     /* Desktop: 3 tarjetas visibles simultáneamente */
     .project-slide {
       flex: 0 0 calc((100% - 3rem) / 3);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-light);
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 10px;
       overflow: hidden;
       position: relative;
       user-select: none;
       box-shadow: var(--shadow-sm);
       transition: border-color var(--transition-fast), transform var(--transition-smooth), box-shadow var(--transition-smooth);
+      display: flex;
+      flex-direction: column;
+      height: 420px;
     }
 
     .project-slide:hover {
@@ -744,7 +977,8 @@
 
     .project-image-container {
       width: 100%;
-      height: 290px;
+      height: 50%;
+      flex: 0 0 50%;
       overflow: hidden;
       position: relative;
       background-color: #E2E8F0;
@@ -760,6 +994,38 @@
 
     .project-slide:hover .project-image-container img {
       transform: scale(1.05);
+    }
+
+    .project-card-info {
+      flex: 1;
+      height: 50%;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.9rem;
+    }
+
+    .project-card-field-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #FFD400;
+      line-height: 1;
+      margin: 0 0 0.3rem 0;
+    }
+
+    .project-card-field-value {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.35;
+      margin: 0;
     }
 
     /* ==========================================================================
@@ -1804,6 +2070,22 @@
         height: 220px;
       }
 
+      .service-card-icon-circle {
+        width: 48px;
+        height: 48px;
+        bottom: 0;
+      }
+
+      .service-card-icon-circle i {
+        font-size: 18px;
+      }
+
+      .service-card-content {
+        padding: 2rem 1.25rem 1.75rem;
+        margin-top: -16px;
+        border-radius: 0 0 12px 12px;
+      }
+
       /* Proyectos en Mobile */
       .project-slide {
         flex: 0 0 85vw;
@@ -2080,77 +2362,93 @@
     </section>
 
     <!-- ==========================================================================
-         SECCIÓN SERVICIOS (4 COLUMNAS DESKTOP / DISEÑO LUMINOSO)
+         SECCIÓN SERVICIOS (DISEÑO NUEVO: TÍTULO NARANJA-AMARILLO, TARJETAS CON ÍCONOS)
          ========================================================================== -->
     <section class="services-section" id="servicios">
       <div class="container">
         <div class="section-header reveal">
           <h2 class="section-title">Nuestros Servicios</h2>
           <p class="section-subtitle">
-            Ejecución técnica certificada para autopistas, rutas urbanas, centros de distribución e infraestructura vial con materiales de alta reflectancia.
+            SOLUCIONES QUE GARANTIZAN SEGURIDAD
           </p>
         </div>
 
         <div class="services-grid" id="servicesGrid">
-          <!-- 01: Líneas Laterales y Centrales -->
+          <!-- 01: DEMARCACIÓN VIAL -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
-              <span class="product-number-badge">01</span>
-              <img src="Servicio1.jpg" alt="Líneas Laterales y Centrales en carretera" loading="lazy" width="400" height="280">
+              <div class="service-card-image-inner">
+                <img src="Servicio1.jpg" alt="Demarcación Vial" loading="lazy" width="400" height="300">
+              </div>
+              <div class="service-card-icon-circle">
+                <i class="fa-solid fa-paint-roller"></i>
+              </div>
             </div>
             <div class="service-card-content">
               <div>
-                <h3 class="service-card-title">Líneas Laterales y Centrales</h3>
+                <h3 class="service-card-title">DEMARCACIÓN VIAL</h3>
                 <p class="service-card-desc">
-                  Aplicación de pintura termoplástica y acrílica de alto tráfico. Delimitación de pistas con microesferas para visibilidad diurna y nocturna superior.
+                  Pintura de alto tráfico y máxima durabilidad. Líneas, simbología y zonas de seguridad.
                 </p>
               </div>
             </div>
           </article>
 
-          <!-- 02: Simbología Especial -->
+          <!-- 02: SEÑALIZACIÓN -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
-              <span class="product-number-badge">02</span>
-              <img src="Servicio2.jpg" alt="Demarcación de Simbología Especial y Cruces" loading="lazy" width="400" height="280">
+              <div class="service-card-image-inner">
+                <img src="Servicio2.jpg" alt="Señalización" loading="lazy" width="400" height="300">
+              </div>
+              <div class="service-card-icon-circle">
+                <i class="fa-solid fa-traffic-light"></i>
+              </div>
             </div>
             <div class="service-card-content">
               <div>
-                <h3 class="service-card-title">Simbología Especial</h3>
+                <h3 class="service-card-title">SEÑALIZACIÓN</h3>
                 <p class="service-card-desc">
-                  Flechas direccionales, pasos peatonales, cruces cebra, zonas de ceda el paso y leyendas viales con trazados geométricos de alta precisión.
+                  Señales verticales, informativas, reglamentarias y preventivas para rutas, industrias y proyectos urbanos.
                 </p>
               </div>
             </div>
           </article>
 
-          <!-- 03: Dispositivos de Seguridad -->
+          <!-- 03: SEGURIDAD VIAL -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
-              <span class="product-number-badge">03</span>
-              <img src="Servicio3.jpg" alt="Instalación de Dispositivos de Seguridad Vial" loading="lazy" width="400" height="280">
+              <div class="service-card-image-inner">
+                <img src="Servicio3.jpg" alt="Seguridad Vial" loading="lazy" width="400" height="300">
+              </div>
+              <div class="service-card-icon-circle">
+                <i class="fa-solid fa-hard-hat"></i>
+              </div>
             </div>
             <div class="service-card-content">
               <div>
-                <h3 class="service-card-title">Dispositivos de Seguridad</h3>
+                <h3 class="service-card-title">SEGURIDAD VIAL</h3>
                 <p class="service-card-desc">
-                  Suministro e instalación de tachas reflectantes bidireccionales, tachones reductores de velocidad, delineadores y canalizadores de flujo vehicular.
+                  Dispositivos, tachas, canalizadores y elementos de seguridad para proteger a las personas.
                 </p>
               </div>
             </div>
           </article>
 
-          <!-- 04: Demarcaciones Extras -->
+          <!-- 04: DEMARCACIÓN INDUSTRIAL -->
           <article class="service-card reveal">
             <div class="service-card-image-wrap">
-              <span class="product-number-badge">04</span>
-              <img src="Servicio4.jpg" alt="Demarcaciones Extras e Industriales" loading="lazy" width="400" height="280">
+              <div class="service-card-image-inner">
+                <img src="Servicio4.jpg" alt="Demarcación Industrial" loading="lazy" width="400" height="300">
+              </div>
+              <div class="service-card-icon-circle">
+                <i class="fa-solid fa-warehouse"></i>
+              </div>
             </div>
             <div class="service-card-content">
               <div>
-                <h3 class="service-card-title">Demarcaciones Extras</h3>
+                <h3 class="service-card-title">DEMARCACIÓN INDUSTRIAL</h3>
                 <p class="service-card-desc">
-                  Pintura y sectorización para estacionamientos, bodegas industriales, ciclovías, zonas de carga y señalética vertical complementaria.
+                  Estacionamientos, bodegas, centros logísticos y faenas industriales.
                 </p>
               </div>
             </div>
@@ -2175,6 +2473,61 @@
     </section>
 
     <!-- ==========================================================================
+         SECCIÓN SECTORES QUE ATENDEMOS
+         ========================================================================== -->
+    <section class="sectors-section" id="sectores">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 class="section-title">Sectores que Atendemos</h2>
+        </div>
+
+        <div class="sectors-grid" id="sectorsGrid">
+          <!-- 1: Concesionarias -->
+          <div class="sector-item reveal">
+            <i class="fa-solid fa-car sector-icon"></i>
+            <h3 class="sector-title">Concesionarias</h3>
+          </div>
+
+          <!-- 2: Constructoras -->
+          <div class="sector-item reveal">
+            <i class="fa-solid fa-hard-hat sector-icon"></i>
+            <h3 class="sector-title">Constructoras</h3>
+          </div>
+
+          <!-- 3: Centros Logísticos -->
+          <div class="sector-item reveal">
+            <i class="fa-solid fa-warehouse sector-icon"></i>
+            <h3 class="sector-title">Centros Logísticos</h3>
+          </div>
+
+          <!-- 4: Industrias -->
+          <div class="sector-item reveal">
+            <i class="fa-solid fa-industry sector-icon"></i>
+            <h3 class="sector-title">Industrias</h3>
+          </div>
+
+          <!-- 5: Municipalidades -->
+          <div class="sector-item reveal">
+            <i class="fa-solid fa-city sector-icon"></i>
+            <h3 class="sector-title">Municipalidades</h3>
+          </div>
+
+          <!-- 6: Proyectos Inmobiliarios -->
+          <div class="sector-item reveal">
+            <i class="fa-solid fa-building sector-icon"></i>
+            <h3 class="sector-title">Proyectos Inmobiliarios</h3>
+          </div>
+
+          <!-- 7: Autopistas y Carreteras -->
+          <div class="sector-item reveal">
+            <i class="fa-solid fa-road sector-icon"></i>
+            <h3 class="sector-title">Autopistas y Carreteras</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
          SECCIÓN PROYECTOS / TRABAJOS REALIZADOS (CARRUSEL 9 IMÁGENES)
          ========================================================================== -->
     <section class="projects-section" id="proyectos">
@@ -2190,66 +2543,156 @@
           <div class="projects-carousel-viewport" id="projectsViewport">
             <div class="projects-carousel-track" id="projectsTrack">
               
-              <!-- Slide 1 -->
+              <!-- Slide 1: doble línea central en carretera rural -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente1.jpg" alt="Demarcación de Ejes y Pistas Urbanas" loading="lazy">
+                  <img src="TrabajoReciente1.jpg" alt="Demarcación de doble línea central en carretera rural" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Doble Línea Central en Carretera Rural</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Demarcación de Ejes Viales</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Slide 2 -->
+              <!-- Slide 2: línea segmentada en zona de obra -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente2.jpg" alt="Aplicación de Líneas Continuas y Segmentadas" loading="lazy">
+                  <img src="TrabajoReciente2.jpg" alt="Demarcación de línea segmentada en zona de obra" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Línea Segmentada en Zona de Obra</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Demarcación en Zona de Faena</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Slide 3 -->
+              <!-- Slide 3: achurado / isla canalizada -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente3.jpg" alt="Señalización y Simbología en Cruces" loading="lazy">
+                  <img src="TrabajoReciente3.jpg" alt="Demarcación de isla canalizada con achurado diagonal" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Isla Canalizada con Achurado Diagonal</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Demarcación de Islas y Achurados</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Slide 4 -->
+              <!-- Slide 4: paso cebra nocturno -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente4.jpg" alt="Demarcación de Zonas de Estacionamiento y Accesos" loading="lazy">
+                  <img src="TrabajoReciente4.jpg" alt="Paso cebra demarcado de noche" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Paso Cebra en Vía Urbana Nocturna</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Demarcación de Pasos Peatonales</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Slide 5 -->
+              <!-- Slide 5: isleta con tachas -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente5.jpg" alt="Obras Viales de Alta Precisión en Terreno" loading="lazy">
+                  <img src="TrabajoReciente5.jpg" alt="Isleta vial con tachas reflectantes amarillas" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Isleta con Tachas Reflectantes</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Instalación de Tachas y Segregadores</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Slide 6 -->
+              <!-- Slide 6: flechas en autopista -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente6.jpg" alt="Delimitación de Carriles y Berma en Rutas" loading="lazy">
+                  <img src="TrabajoReciente6.jpg" alt="Demarcación de flechas direccionales en autopista" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Flechas Direccionales y Eje Segmentado</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Simbología Vial</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Slide 7 -->
+              <!-- Slide 7: ciclovía azul -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente7.jpg" alt="Instalación y Pintura de Seguridad en Pavimento" loading="lazy">
+                  <img src="TrabajoReciente7.jpg" alt="Ciclovía azul con demarcación de cruce peatonal" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Ciclovía Azul y Cruce Peatonal</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Demarcación de Ciclovías</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Slide 8 -->
+              <!-- Slide 8: ceda el paso y línea de detención -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente8.jpg" alt="Proyectos Integrales de Señalética y Señalización" loading="lazy">
+                  <img src="TrabajoReciente8.jpg" alt="Demarcación de ceda el paso y línea de detención" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Ceda el Paso y Línea de Detención</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Simbología y Señalización Horizontal</p>
+                  </div>
                 </div>
               </div>
 
-              <!-- Slide 9 -->
+              <!-- Slide 9: lomo de toro amarillo -->
               <div class="project-slide">
                 <div class="project-image-container">
-                  <img src="TrabajoReciente9.jpg" alt="Demarcación Técnica para Tráfico Pesado y Logística" loading="lazy">
+                  <img src="TrabajoReciente9.jpg" alt="Lomo de toro amarillo con flechas blancas" loading="lazy">
+                </div>
+                <div class="project-card-info">
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Proyecto</p>
+                    <p class="project-card-field-value">Resalto Reductor de Velocidad</p>
+                  </div>
+                  <div class="project-card-field">
+                    <p class="project-card-field-label">Servicio</p>
+                    <p class="project-card-field-value">Demarcación de Resaltos y Lomos de Toro</p>
+                  </div>
                 </div>
               </div>
 
@@ -2464,12 +2907,12 @@
         <div class="about-grid">
           
           <div class="about-content reveal">
-            <h2 class="section-title">Quiénes Somos</h2>
+            <h2 class="section-title">QUIÉNES SOMOS</h2>
             <p class="about-lead">
-              SISVIAL es una empresa chilena especializada en soluciones integrales de demarcación, señalización y seguridad vial para proyectos de máxima exigencia.
+              En SISVIAL nos dedicamos a entregar soluciones integrales de seguridad vial, combinando experiencia, calidad y compromiso en cada proyecto.
             </p>
             <p class="about-desc">
-              Desarrollamos cada faena con estrictos estándares de ingeniería, maquinaria especializada y personal altamente calificado en terreno, garantizando durabilidad y visibilidad en autopistas, caminos públicos y recintos industriales.
+              Contamos con un equipo especializado en demarcación vial, señalización y seguridad vial, desarrollando trabajos para carreteras, autopistas, industrias, centros logísticos y proyectos urbanos en todo Chile.
             </p>
 
             <div class="about-pillars">
@@ -3192,28 +3635,93 @@
           updateProductsCarouselPosition();
         }, { passive: true });
 
-        // Scroll snap tracking para mobile
-        if (productsTrack) {
-          productsTrack.addEventListener('scroll', () => {
-            if (isProductsMobile()) {
-              const cardWidth = productSlides[0].offsetWidth + 16;
-               const scrollPos = productsTrack.scrollLeft;
-              const activeIdx = Math.round(scrollPos / cardWidth);
-              const dots = productsMobileDotsContainer.querySelectorAll('.products-carousel-dot');
-              dots.forEach((dot, idx) => {
-                dot.classList.toggle('active', idx === activeIdx);
-              });
-              const dotsDesktop = productsDotsContainer.querySelectorAll('.products-carousel-dot');
-              dotsDesktop.forEach((dot, idx) => {
-                dot.classList.toggle('active', idx === activeIdx);
-              });
+         // Scroll snap tracking para mobile
+         if (productsTrack) {
+           productsTrack.addEventListener('scroll', () => {
+             if (isProductsMobile()) {
+               const cardWidth = productSlides[0].offsetWidth + 16;
+                const scrollPos = productsTrack.scrollLeft;
+               const activeIdx = Math.round(scrollPos / cardWidth);
+               const dots = productsMobileDotsContainer.querySelectorAll('.products-carousel-dot');
+               dots.forEach((dot, idx) => {
+                 dot.classList.toggle('active', idx === activeIdx);
+               });
+               const dotsDesktop = productsDotsContainer.querySelectorAll('.products-carousel-dot');
+               dotsDesktop.forEach((dot, idx) => {
+                 dot.classList.toggle('active', idx === activeIdx);
+               });
+             }
+           }, { passive: true });
+         }
+
+        /* --------------------------------------------------------------------------
+           5b. SECTORES QUE ATENDEMOS - CARRUSEL AUTO-SCROLLING (MÓVIL)
+           -------------------------------------------------------------------------- */
+        /* --------------------------------------------------------------------------
+           5b. SECTORES QUE ATENDEMOS - CARRUSEL CONTINUO Y SUAVE (MÓVIL)
+           -------------------------------------------------------------------------- */
+        const sectorsGridEl = document.getElementById('sectorsGrid');
+        const originalSectorItems = Array.from(sectorsGridEl.querySelectorAll('.sector-item'));
+        const isSectorsMobile = () => window.innerWidth <= 768;
+
+        originalSectorItems.forEach(item => {
+          const clone = item.cloneNode(true);
+          clone.classList.remove('reveal');
+          clone.classList.add('sector-clone');
+          sectorsGridEl.appendChild(clone);
+        });
+
+        let sectorsAnimFrame = null;
+        let sectorsSpeed = 0.4;
+        let sectorsPaused = false;
+        let sectorsOriginalWidth = 0;
+
+        const updateWidth = () => {
+          if (!originalSectorItems.length) { sectorsOriginalWidth = 0; return; }
+          sectorsOriginalWidth = originalSectorItems[0].getBoundingClientRect().width * originalSectorItems.length;
+        };
+
+        setTimeout(updateWidth, 150);
+
+        const autoScroll = () => {
+          if (!sectorsGridEl || !isSectorsMobile()) {
+            sectorsAnimFrame = requestAnimationFrame(autoScroll);
+            return;
+          }
+          if (!sectorsPaused && sectorsOriginalWidth > 0) {
+            sectorsGridEl.scrollLeft += sectorsSpeed;
+            if (sectorsGridEl.scrollLeft >= sectorsOriginalWidth) {
+              sectorsGridEl.scrollLeft = 0;
+            }
+          }
+          sectorsAnimFrame = requestAnimationFrame(autoScroll);
+        };
+
+        if (sectorsGridEl) {
+          sectorsGridEl.addEventListener('scroll', () => {
+            if (!isSectorsMobile() || sectorsOriginalWidth <= 0) return;
+            if (sectorsGridEl.scrollLeft >= sectorsOriginalWidth) {
+              sectorsGridEl.scrollLeft = 0;
             }
           }, { passive: true });
+
+          sectorsGridEl.addEventListener('mouseenter', () => { sectorsPaused = true; });
+          sectorsGridEl.addEventListener('mouseleave', () => { sectorsPaused = false; });
+          sectorsGridEl.addEventListener('touchstart', () => { sectorsPaused = true; }, { passive: true });
+          sectorsGridEl.addEventListener('touchend', () => { sectorsPaused = false; }, { passive: true });
         }
 
-       /* --------------------------------------------------------------------------
-          5. INTERSECTION OBSERVER (REVEAL ANIMATIONS)
-          -------------------------------------------------------------------------- */
+        autoScroll();
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(updateWidth, 200);
+        }, { passive: true });
+
+        /* --------------------------------------------------------------------------
+           5. INTERSECTION OBSERVER (REVEAL ANIMATIONS)
+           -------------------------------------------------------------------------- */
       const servicesGrid = document.getElementById('servicesGrid');
       const btnPrevService = document.getElementById('btnPrevService');
       const btnNextService = document.getElementById('btnNextService');
@@ -3231,7 +3739,7 @@
             if (idx === 0) dot.classList.add('active');
             dot.setAttribute('aria-label', `Ir a servicio ${idx + 1}`);
             dot.addEventListener('click', () => {
-              const cardWidth = serviceCards[0].offsetWidth + 16;
+      const cardWidth = serviceCards[0].offsetWidth + 16;
               servicesGrid.scrollTo({
                 left: idx * cardWidth,
                 behavior: 'smooth'
