@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
           sectorsGridEl.addEventListener('touchend', () => { sectorsPaused = false; }, { passive: true });
         }
 
-        autoScroll();
+        setTimeout(()=>{if(!document.hidden) autoScroll();},5000);
 
         let resizeTimer;
         window.addEventListener('resize', () => {
