@@ -323,17 +323,19 @@ document.addEventListener('DOMContentLoaded', () => {
           productsTrack.style.transform = `translateX(${offset}px)`;
         };
 
-        const scrollProductsToIndex = (index) => {
-          if (!productsTrack || !productSlides.length) return;
-          const cardWidth = productSlides[0].offsetWidth + 16;
-          productsTrack.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
-        };
-
-        const scrollProducts = (direction) => {
-          if (!productsTrack || !productSlides.length) return;
-          const cardWidth = productSlides[0].offsetWidth + 16;
-          productsTrack.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-        };
+        let prodCardW = 0;
+const cachedProdCardW = () => {
+if (!prodCardW && productSlides.length) prodCardW = productSlides[0].offsetWidth + 16;
+return prodCardW || 300;
+};
+const scrollProductsToIndex = (index) => {
+if (!productsTrack || !productSlides.length) return;
+productsTrack.scrollTo({ left: index * cachedProdCardW(), behavior: 'smooth' });
+};
+const scrollProducts = (direction) => {
+if (!productsTrack || !productSlides.length) return;
+productsTrack.scrollBy({ left: direction * cachedProdCardW(), behavior: 'smooth' });
+};
 
         const goToProductSlide = (index) => {
           const maxIndex = getProductsMaxIndex();
@@ -441,7 +443,9 @@ document.addEventListener('DOMContentLoaded', () => {
         startProductsAutoPlay();
 
         window.addEventListener('resize', () => {
-          const max = getProductsMaxIndex();
+          prodCardW = 0;
+if (typeof servCardW !== 'undefined') servCardW = 0;
+const max = getProductsMaxIndex();
           if (productsCurrentIndex > max) productsCurrentIndex = max;
           createProductsDots(productsDotsContainer);
           createProductsDots(productsMobileDotsContainer);
@@ -449,10 +453,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
 
          // Scroll snap tracking para mobile
-         if (productsTrack) {
-           productsTrack.addEventListener('scroll', () => {
-             if (isProductsMobile()) {
-               const cardWidth = productSlides[0].offsetWidth + 16;
+         let prodTicking = false;
+if (productsTrack) {
+productsTrack.addEventListener('scroll', () => {
+if (!isProductsMobile() || prodTicking) return;
+prodTicking = true;
+requestAnimationFrame(() => {
+const cardWidth = cachedProdCardW();
                 const scrollPos = productsTrack.scrollLeft;
                const activeIdx = Math.round(scrollPos / cardWidth);
                const dots = productsMobileDotsContainer.querySelectorAll('.products-carousel-dot');
@@ -463,8 +470,9 @@ document.addEventListener('DOMContentLoaded', () => {
                dotsDesktop.forEach((dot, idx) => {
                  dot.classList.toggle('active', idx === activeIdx);
                });
-             }
-           }, { passive: true });
+             prodTicking = false;
+});
+}, { passive: true });
          }
 
         /* --------------------------------------------------------------------------
@@ -562,9 +570,14 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         };
 
-        const updateActiveServiceDot = () => {
-          if (!servicesDotsContainer || !serviceCards.length) return;
-          const cardWidth = serviceCards[0].offsetWidth + 16;
+        let servCardW = 0;
+const cachedServCardW = () => {
+if (!servCardW && serviceCards.length) servCardW = serviceCards[0].offsetWidth + 16;
+return servCardW || 300;
+};
+const updateActiveServiceDot = () => {
+if (!servicesDotsContainer || !serviceCards.length) return;
+const cardWidth = cachedServCardW();
           const scrollPos = servicesGrid.scrollLeft;
           const activeIdx = Math.round(scrollPos / cardWidth);
           const dots = servicesDotsContainer.querySelectorAll('.services-dot');
@@ -575,19 +588,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (btnPrevService) {
           btnPrevService.addEventListener('click', () => {
-            const cardWidth = serviceCards[0] ? serviceCards[0].offsetWidth + 16 : 300;
-            servicesGrid.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            servicesGrid.scrollBy({ left: -cachedServCardW(), behavior: 'smooth' });
           });
         }
 
         if (btnNextService) {
           btnNextService.addEventListener('click', () => {
-            const cardWidth = serviceCards[0] ? serviceCards[0].offsetWidth + 16 : 300;
-            servicesGrid.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            servicesGrid.scrollBy({ left: cachedServCardW(), behavior: 'smooth' });
           });
         }
 
-        servicesGrid.addEventListener('scroll', updateActiveServiceDot, { passive: true });
+        let servTicking = false;
+servicesGrid.addEventListener('scroll', () => {
+if (servTicking) return;
+servTicking = true;
+requestAnimationFrame(() => { updateActiveServiceDot(); servTicking = false; });
+}, { passive: true });
         createServicesDots();
         
         window.addEventListener('resize', createServicesDots, { passive: true });
