@@ -106,6 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
+      /* Todo lo bajo el fold se inicializa en idle: saca ~100ms de reflow de la ventana critica */
+      const initBelowFold = () => {
       /* --------------------------------------------------------------------------
          4. CARRUSEL DE PROYECTOS (VANILLA JS - 9 IMÁGENES)
          -------------------------------------------------------------------------- */
@@ -607,6 +609,13 @@ requestAnimationFrame(() => { updateActiveServiceDot(); servTicking = false; });
         createServicesDots();
         
         window.addEventListener('resize', createServicesDots, { passive: true });
+      }
+
+      };
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initBelowFold, { timeout: 1800 });
+      } else {
+        setTimeout(initBelowFold, 400);
       }
 
       /* --------------------------------------------------------------------------
